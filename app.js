@@ -6,6 +6,8 @@ const hpp = require('hpp');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const rateLimit = require('express-rate-limit');
+const cookieParser = require('cookie-parser');
+
 const globalHandler = require('./controller/errorController');
 const AppError = require('./utils/appError');
 const tourRouter = require('./routes/tourRoute');
@@ -39,6 +41,7 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 app.use(express.json({ limit: '10kb' }));
+app.use(cookieParser());
 
 //data sanitzation NOSQL injetion
 app.use(mongoSanitize());
@@ -65,6 +68,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
   req.requestTime = new Date().toDateString();
+  console.log(req.cookies);
   // console.log(req.headers);
   next();
 });
