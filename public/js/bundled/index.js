@@ -5,7 +5,7 @@
 //
 // anything defined in a previous bundle is accessed via the
 // orig method which is the require for previous bundles
-
+import { showAlert } from '../alert.js';
 (function (modules, entry, mainEntry, parcelRequireName, globalName) {
   /* eslint-disable no-undef */
   var globalObject =
@@ -279,13 +279,13 @@
               },
             });
             if (res.data.status === 'success') {
-              alert('success', 'Logged in successfully!');
+              showAlert('success', 'Logged in successfully!');
               window.setTimeout(() => {
                 location.assign('/');
               }, 500);
             }
           } catch (err) {
-            alert('error', err.response.data.message);
+            showAlert('error', err.response.data.message);
           }
         };
       },
