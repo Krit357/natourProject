@@ -6,10 +6,9 @@ const router = express.Router();
 
 router.get('/signup', viewController.getSignUpForm);
 
-router.use(authController.isLoggedIn);
-
-router.get('/', viewController.getOverView);
-router.get('/tour/:slug', viewController.getTour);
-router.get('/login', viewController.getLoginForm);
+router.get('/', authController.isLoggedIn, viewController.getOverView);
+router.get('/tour/:slug', authController.isLoggedIn, viewController.getTour);
+router.get('/login', authController.isLoggedIn, viewController.getLoginForm);
+router.get('/account', authController.protect, viewController.getAccount);
 
 module.exports = router;
