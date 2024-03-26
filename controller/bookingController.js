@@ -5,6 +5,7 @@ const factory = require('./handlerFactory');
 const AppError = require('../utils/appError');
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
+  console.log(req.url);
   //1.get the currently book tour
   const tour = await Tour.findById(req.params.tourId);
   console.log(tour);

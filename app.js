@@ -23,7 +23,27 @@ app.set('views', path.join(__dirname, 'views'));
 
 //1.GLOBAL MIDDLEWARE
 // set Security HTTP Headers
-app.use(helmet());
+app.use(
+  helmet({
+    crossOriginEmbedderPolicy: false,
+  }),
+);
+
+// Further HELMET configuration for Security Policy (CSP)
+const scriptSrcUrls = [
+  "'self'",
+  'https://cdnjs.cloudflare.com',
+  'https://api.mapbox.com',
+  'https://js.stripe.com',
+];
+
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      scriptSrc: ["'self'", ...scriptSrcUrls],
+    },
+  }),
+);
 
 //development blocking
 if (process.env.NODE_ENV === 'development') {
